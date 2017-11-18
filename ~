@@ -12,13 +12,11 @@ cur = conn.cursor()
 
 cur.execute("SELECT word, count FROM tweetwordcount order by count desc limit 20")
 records = cur.fetchall()
+output_dict = {rec[0], rec[1] for rec in records}
+output_dict
 
-words = [rec[0] for rec in records]
-counts = [rec[1] for rec in records]
-
-plt.bar(words,counts)
+plt.bar(output_dict.keys(), output_dict.values())
 plt.savefig('Plot.png')
 
 conn.commit()
 conn.close()
-
