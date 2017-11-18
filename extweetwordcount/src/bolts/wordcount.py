@@ -6,41 +6,39 @@ from streamparse.bolt import Bolt
 
 import psycopg2
 
-#connect to database 
-conn = psycopg2.connect(database="tcount",user="postgres",host="localhost",port="5432")
-
 class WordCounter(Bolt):
 
     def initialize(self, conf, ctx):
         self.counts = Counter()
 
+        #Connecting to tcount
+        self.conn = psycopg2.connect(database="tcount", user="postgres", password="pass", host="localhost", port="5432")
+
+
+
     def process(self, tup):
         word = tup.values[0]
-
 
         # Increment the local count
         self.counts[word] += 1
         self.emit([word, self.counts[word]])
 
-        # Write codes to increment the word count in Postgres
-        # Use psycopg to interact with Postgres
-        # Database name: Tcount
-        # Table name: Tweetwordcount
-        # you need to create both the database and the table in advance.
-        # create cursor and update tweetwordcount table with our increment words
-
+        # Increment the word count in Postgres, using psycopg to interact
+        # inserts counts into tweetword table
         try:
-            cur = conn.cursor()
+            #load the cursor
+            cur = self.conn.cursor()
 
-            if self.counts[word] == 1: ###if new word, insert
+            if self.counts[word] == 1: ###if new word, insert into table
                 cur.execute("INSERT INTO tweetwordcount (word, count) VALUES (%s, %s)", (word, self.counts[word]))
-            else: ###if already in table
+            else: ###if already in table, change count to new count
                 cur.execute("UPDATE tweetwordcount SET count=%s WHERE word=%s",(self.counts[word], word))
-                
-            conn.commit()
-            conn.close()
-	except:
+
+            #commit the query
+            self.conn.commit()
+        except: #if you can't connect to the db
             self.log("missed db")
+
         # Log the count - just to see the topology running
         self.log('%s: %d' % (word, self.counts[word]))
 
