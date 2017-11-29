@@ -1,0 +1,35 @@
+---
+title: "W205 - Exercise 2 Architecture"
+author: "Jason Rosenfeld"
+date: "Last updated 12/2/17"
+output: pdf_document
+---
+
+## Application idea
+
+## Architecture description
+
+## Directory/File Structure
+Notable and important files/processes/scripts are highlighted below. Note, this does not cover the entire directory, missing files may include streamparse project files, git configuration files, etc.
+```
+W205-Exercise-2
+|-- extweetwordcount                #streamparse application
+    |-- src
+        |--bolts
+            |--wourdcount.py        #wordcount bolt file
+            |--parse.py             #parse bolt file
+        |--spouts
+            |--tweets.py            #tweet spout file
+|-- barplot_png.py                  #creates bar plot of top 20 words
+|-- Plot.png                        #output of barplot_png.py
+|-- finalresults.py                 #shows all word, count pairings
+|-- histogram.py                    #lists words within specified range
+|-- requirements.txt                #includes list of python package dependencies
+|-- setup_db.py                     #must be run before streamparse application can run
+|-- Twittercredentials.py           #you must edit this with your credentials
+```
+
+
+## File dependencies
+
+## Running the application

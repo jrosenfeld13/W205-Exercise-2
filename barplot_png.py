@@ -20,6 +20,5 @@ counts = [rec[1] for rec in records]
 plt.bar(words,counts)
 plt.ylabel('word counts')
 plt.xlabel('words')
-plt.title('Top 25 words')
+plt.title('Top 20 words')
 plt.savefig('Plot.png')
-
