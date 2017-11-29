@@ -30,10 +30,10 @@ python setup_db.py
 cd /extweetwordcount
 sparse run
 ```
-![streamparse application](/screenshots/screenshot-setup.png)
+![streamparse application](/screenshots/screenshot-setup.PNG)
 
 ##### Output
-![streamparse application](/screenshots/screenshot-twitterStream.png)
+![streamparse application](/screenshots/screenshot-twitterStream.PNG)
 
 ## Serving scripts
 We can query the continuously updating postgresql data table with the following scripts:
