@@ -20,16 +20,17 @@ Ensure all package dependencies are installed. We will be using packages like tw
 pip install -r requirements.txt
 ```
 
-Twittercredentials.py
-
 ## Streaming
-In order to run the Storm cluster and streamparse application, run the following:
+In order to run the Storm cluster and streamparse (sparse) application, run the following:
+
 ```
 python setup_db.py
 
 cd /extweetwordcount
 sparse run
 ```
+(NOTE: setup_db.py must be run each time before starting the sparse app)
+
 ![streamparse application](/screenshots/screenshot-setup.PNG)
 
 ##### Output
