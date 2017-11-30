@@ -6,9 +6,9 @@ output: pdf_document
 ---
 
 ## Application idea
-This application streams tweets (in real-time) and iteratively counts the occurrences of individual words. Serving scripts have been written to search for the frequencies of words, filter words with and create a bar chart of the top 20 words. 
+This application streams tweets (in real-time) and iteratively counts the occurrences of individual words. Serving scripts have been written to search for the frequencies of words, filter words by search or occurence counts, and create a bar chart of the top 20 words. 
 
-The streaming is done with python packages called Tweepy and Streamparse which are  python "wrappers" for the Twitter API and Apache Storm, respectively. All data is stored in postgres using a python package called psycopg2.
+The streaming is done with python packages called Tweepy and Streamparse which are  python "wrappers" for the Twitter API and Apache Storm, respectively. All data is stored in Postgres using a python package called psycopg2.
 
 ## Architecture description
 ![architecture diagram](C:/Users/jrose/Desktop/test.png)
@@ -21,6 +21,11 @@ The tweepy library for python is used for streaming data from the Twitter API.
 
 ### Apache Storm
 We use streamparse as our Storm "wrapper" for python. The package creates necessary project files and a sample topology that are then changed for our application.
+
+![streamparse topology diagram](C:/Users/jrose/Desktop/top.png)
+
+The tweet spout uses 3 processes and shuffles to the parse-tweet bolt. Parse-tweet bolt uses 3 processes and shuffles to 2 processes of count-bolt which is then pushed to postgres.
+
 
 ### PostgresSQL
 We use the psycopg2 python library in order to connect with our postgres database. We create a database called tcount and a table called tweetwordcount that is fed from the final Storm bolts in the topology.
